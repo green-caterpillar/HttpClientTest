@@ -22,9 +22,6 @@
 - (void)setUp {
     [super setUp];
     
-    NSURLSessionConfiguration *sessionConfig = [NSURLSessionConfiguration defaultSessionConfiguration];
-    sessionConfig.timeoutIntervalForRequest = 0.5;
-    
     [OHHTTPStubs stubRequestsPassingTest:^BOOL(NSURLRequest * _Nonnull request) {
         return [request.URL.path isEqualToString:@"/success"];
     } withStubResponse:^OHHTTPStubsResponse * _Nonnull(NSURLRequest * _Nonnull request) {
@@ -83,14 +80,12 @@
 }
 
 - (void)requestTryAgain:(NSError*)error {
-    NSLog(@"requestTryAgain");
     if([self.responseExpectation.description isEqualToString:@"failed query"]) {
         [self.responseExpectation fulfill];
     }
 }
 
 - (void)requestTimeout {
-    NSLog(@"requestTimeout");
     if([self.responseExpectation.description isEqualToString:@"timeout query"]) {
         [self.responseExpectation fulfill];
     }

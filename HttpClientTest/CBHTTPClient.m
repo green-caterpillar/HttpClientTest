@@ -27,7 +27,7 @@
 - (void)sendRequest:(NSDictionary*)params {
     NSMutableString* urlWithParams = [self.url mutableCopy];
     
-    if(params && [params count]  > 0) {
+    if([params count] > 0) {
         [urlWithParams appendString:@"?"];
         [params enumerateKeysAndObjectsUsingBlock:^(id  _Nonnull key, id  _Nonnull obj, BOOL * _Nonnull stop) {
             [urlWithParams appendFormat:@"%@=%@&", key, obj];
@@ -38,12 +38,17 @@
     request.HTTPMethod = @"GET";
     NSURLSessionDataTask* task = [[NSURLSession sharedSession] dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
         
-        if(error && error.code == -1001 && [self.delegate respondsToSelector:@selector(requestTimeout)]) {
-            [self.delegate requestTimeout];
+        if(error) {
+            if(error.code == -1001 && [self.delegate respondsToSelector:@selector(requestTimeout)]) {
+                [self.delegate requestTimeout];
+            }
+            NSLog(@"error: %@", error.localizedDescription);
             return;
         }
+
         
         NSHTTPURLResponse* resp = (NSHTTPURLResponse*)response;
+        NSLog(@"HTTP response status: %td", resp.statusCode);
         if(self.delegate) {
             if(resp.statusCode >= 200 && resp.statusCode < 300 && [self.delegate respondsToSelector:@selector(requestOK:)]) {
                 [self.delegate requestOK:data];
