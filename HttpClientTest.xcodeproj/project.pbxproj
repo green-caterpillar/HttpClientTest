@@ -13,6 +13,10 @@
 		7ACB7C7F1E0A69EF002DFB2B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7ACB7C7E1E0A69EF002DFB2B /* Assets.xcassets */; };
 		7ACB7C821E0A69EF002DFB2B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7ACB7C801E0A69EF002DFB2B /* Main.storyboard */; };
 		7ACB7C8D1E0A69EF002DFB2B /* HttpClientTestTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 7ACB7C8C1E0A69EF002DFB2B /* HttpClientTestTests.m */; };
+		7ACB7C991E0A6A11002DFB2B /* CBHTTPClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 7ACB7C981E0A6A11002DFB2B /* CBHTTPClient.m */; };
+		7ACB7C9A1E0A6A11002DFB2B /* CBHTTPClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 7ACB7C981E0A6A11002DFB2B /* CBHTTPClient.m */; };
+		7ACB7CA11E0AB6B3002DFB2B /* OHHTTPStubs.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7ACB7C9C1E0AB63F002DFB2B /* OHHTTPStubs.framework */; };
+		7ACB7CA41E0ABBB4002DFB2B /* OHHTTPStubs.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 7ACB7C9C1E0AB63F002DFB2B /* OHHTTPStubs.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -24,6 +28,19 @@
 			remoteInfo = HttpClientTest;
 		};
 /* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		7ACB7CA31E0ABBA2002DFB2B /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				7ACB7CA41E0ABBB4002DFB2B /* OHHTTPStubs.framework in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		7ACB7C721E0A69EF002DFB2B /* HttpClientTest.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HttpClientTest.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -38,6 +55,9 @@
 		7ACB7C881E0A69EF002DFB2B /* HttpClientTestTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = HttpClientTestTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		7ACB7C8C1E0A69EF002DFB2B /* HttpClientTestTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HttpClientTestTests.m; sourceTree = "<group>"; };
 		7ACB7C8E1E0A69EF002DFB2B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		7ACB7C971E0A6A11002DFB2B /* CBHTTPClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBHTTPClient.h; sourceTree = "<group>"; };
+		7ACB7C981E0A6A11002DFB2B /* CBHTTPClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBHTTPClient.m; sourceTree = "<group>"; };
+		7ACB7C9C1E0AB63F002DFB2B /* OHHTTPStubs.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OHHTTPStubs.framework; path = Carthage/Build/Mac/OHHTTPStubs.framework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -52,6 +72,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7ACB7CA11E0AB6B3002DFB2B /* OHHTTPStubs.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -64,6 +85,7 @@
 				7ACB7C741E0A69EF002DFB2B /* HttpClientTest */,
 				7ACB7C8B1E0A69EF002DFB2B /* HttpClientTestTests */,
 				7ACB7C731E0A69EF002DFB2B /* Products */,
+				7ACB7C9B1E0AB63F002DFB2B /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -87,6 +109,8 @@
 				7ACB7C801E0A69EF002DFB2B /* Main.storyboard */,
 				7ACB7C831E0A69EF002DFB2B /* Info.plist */,
 				7ACB7C781E0A69EF002DFB2B /* Supporting Files */,
+				7ACB7C971E0A6A11002DFB2B /* CBHTTPClient.h */,
+				7ACB7C981E0A6A11002DFB2B /* CBHTTPClient.m */,
 			);
 			path = HttpClientTest;
 			sourceTree = "<group>";
@@ -106,6 +130,14 @@
 				7ACB7C8E1E0A69EF002DFB2B /* Info.plist */,
 			);
 			path = HttpClientTestTests;
+			sourceTree = "<group>";
+		};
+		7ACB7C9B1E0AB63F002DFB2B /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				7ACB7C9C1E0AB63F002DFB2B /* OHHTTPStubs.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -135,6 +167,7 @@
 				7ACB7C841E0A69EF002DFB2B /* Sources */,
 				7ACB7C851E0A69EF002DFB2B /* Frameworks */,
 				7ACB7C861E0A69EF002DFB2B /* Resources */,
+				7ACB7CA31E0ABBA2002DFB2B /* CopyFiles */,
 			);
 			buildRules = (
 			);
@@ -210,6 +243,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				7ACB7C7D1E0A69EF002DFB2B /* ViewController.m in Sources */,
+				7ACB7C991E0A6A11002DFB2B /* CBHTTPClient.m in Sources */,
 				7ACB7C7A1E0A69EF002DFB2B /* main.m in Sources */,
 				7ACB7C771E0A69EF002DFB2B /* AppDelegate.m in Sources */,
 			);
@@ -220,6 +254,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				7ACB7C8D1E0A69EF002DFB2B /* HttpClientTestTests.m in Sources */,
+				7ACB7C9A1E0A6A11002DFB2B /* CBHTTPClient.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -337,6 +372,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				COMBINE_HIDPI_IMAGES = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/Mac",
+				);
 				INFOPLIST_FILE = HttpClientTest/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.zuzex.HttpClientTest;
@@ -349,6 +388,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				COMBINE_HIDPI_IMAGES = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/Mac",
+				);
 				INFOPLIST_FILE = HttpClientTest/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.zuzex.HttpClientTest;
@@ -359,10 +402,15 @@
 		7ACB7C951E0A69EF002DFB2B /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				COMBINE_HIDPI_IMAGES = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/Mac",
+				);
 				INFOPLIST_FILE = HttpClientTestTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks $(PROJECT_DIR)/Carthage/Build/Mac";
 				PRODUCT_BUNDLE_IDENTIFIER = com.zuzex.HttpClientTestTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/HttpClientTest.app/Contents/MacOS/HttpClientTest";
@@ -372,10 +420,15 @@
 		7ACB7C961E0A69EF002DFB2B /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				COMBINE_HIDPI_IMAGES = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/Mac",
+				);
 				INFOPLIST_FILE = HttpClientTestTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks $(PROJECT_DIR)/Carthage/Build/Mac";
 				PRODUCT_BUNDLE_IDENTIFIER = com.zuzex.HttpClientTestTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/HttpClientTest.app/Contents/MacOS/HttpClientTest";

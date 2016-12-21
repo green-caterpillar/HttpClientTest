@@ -7,8 +7,9 @@
 //
 
 #import <Cocoa/Cocoa.h>
+#import "CBHTTPClient.h"
 
-@interface ViewController : NSViewController
+@interface ViewController : NSViewController <CBHTTPClientDelegate>
 
 
 @end

@@ -7,8 +7,13 @@
 //
 
 #import <XCTest/XCTest.h>
+#import "CBHTTPClient.h"
+#import <OHHTTPStubs/OHHTTPStubs.h>
 
-@interface HttpClientTestTests : XCTestCase
+@interface HttpClientTestTests : XCTestCase <CBHTTPClientDelegate>
+
+@property (nonatomic) CBHTTPClient* httpClient;
+@property (nonatomic) XCTestExpectation* responseExpectation;
 
 @end
 
@@ -16,24 +21,79 @@
 
 - (void)setUp {
     [super setUp];
-    // Put setup code here. This method is called before the invocation of each test method in the class.
+    
+    NSURLSessionConfiguration *sessionConfig = [NSURLSessionConfiguration defaultSessionConfiguration];
+    sessionConfig.timeoutIntervalForRequest = 0.5;
+    
+    [OHHTTPStubs stubRequestsPassingTest:^BOOL(NSURLRequest * _Nonnull request) {
+        return [request.URL.path isEqualToString:@"/success"];
+    } withStubResponse:^OHHTTPStubsResponse * _Nonnull(NSURLRequest * _Nonnull request) {
+        return [OHHTTPStubsResponse responseWithData:[NSData new] statusCode:200 headers:nil];
+    }];
+    
+    [OHHTTPStubs stubRequestsPassingTest:^BOOL(NSURLRequest * _Nonnull request) {
+        return [request.URL.path isEqualToString:@"/tryagain"];
+    } withStubResponse:^OHHTTPStubsResponse * _Nonnull(NSURLRequest * _Nonnull request) {
+        return [OHHTTPStubsResponse responseWithData:[NSData new] statusCode:500 headers:nil];
+    }];
+    
+    [OHHTTPStubs stubRequestsPassingTest:^BOOL(NSURLRequest * _Nonnull request) {
+        return [request.URL.path isEqualToString:@"/timeout"];
+    } withStubResponse:^OHHTTPStubsResponse * _Nonnull(NSURLRequest * _Nonnull request) {
+        NSError* error = [NSError errorWithDomain:NSURLErrorDomain code:-1001 userInfo:nil];
+        return [OHHTTPStubsResponse responseWithError:error];
+    }];
 }
 
 - (void)tearDown {
-    // Put teardown code here. This method is called after the invocation of each test method in the class.
+    [OHHTTPStubs removeAllStubs];
     [super tearDown];
 }
 
-- (void)testExample {
-    // This is an example of a functional test case.
-    // Use XCTAssert and related functions to verify your tests produce the correct results.
+- (void)testSuccessfulQuery {
+    self.responseExpectation = [self expectationWithDescription:@"successful query"];
+    self.httpClient = [[CBHTTPClient alloc] initWithUrl:@"http://example.com/success"];
+    self.httpClient.delegate = self;
+    [self.httpClient sendRequest:@{@"param": @42}];
+    [self waitForExpectationsWithTimeout:1 handler:nil];
 }
 
-- (void)testPerformanceExample {
-    // This is an example of a performance test case.
-    [self measureBlock:^{
-        // Put the code you want to measure the time of here.
-    }];
+- (void)testFailedQuery {
+    self.responseExpectation = [self expectationWithDescription:@"failed query"];
+    self.httpClient = [[CBHTTPClient alloc] initWithUrl:@"http://example.com/tryagain"];
+    self.httpClient.delegate = self;
+    [self.httpClient sendRequest:@{@"param": @42}];
+    [self waitForExpectationsWithTimeout:1 handler:nil];
+}
+
+- (void)testTimeoutQuery {
+    self.responseExpectation = [self expectationWithDescription:@"timeout query"];
+    self.httpClient = [[CBHTTPClient alloc] initWithUrl:@"http://example.com/timeout"];
+    self.httpClient.delegate = self;
+    [self.httpClient sendRequest:@{@"param": @42}];
+    [self waitForExpectationsWithTimeout:1 handler:nil];
+}
+
+#pragma mark - CBHTTPClientDelegate
+
+- (void)requestOK:(NSData*)response {
+    if([self.responseExpectation.description isEqualToString:@"successful query"]) {
+        [self.responseExpectation fulfill];
+    }
+}
+
+- (void)requestTryAgain:(NSError*)error {
+    NSLog(@"requestTryAgain");
+    if([self.responseExpectation.description isEqualToString:@"failed query"]) {
+        [self.responseExpectation fulfill];
+    }
+}
+
+- (void)requestTimeout {
+    NSLog(@"requestTimeout");
+    if([self.responseExpectation.description isEqualToString:@"timeout query"]) {
+        [self.responseExpectation fulfill];
+    }
 }
 
 @end

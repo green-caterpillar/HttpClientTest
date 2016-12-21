@@ -8,20 +8,39 @@
 
 #import "ViewController.h"
 
+@interface ViewController ()
+
+@property (nonatomic) CBHTTPClient* httpClient;
+
+@end
+
 @implementation ViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-
-    // Do any additional setup after loading the view.
+    
+    self.httpClient = [[CBHTTPClient alloc] initWithUrl:@"https://api.desktoppr.co/1/wallpapers"];
+    self.httpClient.delegate = self;
+    [self.httpClient sendRequest:@{@"page": @2}];
 }
 
 
 - (void)setRepresentedObject:(id)representedObject {
     [super setRepresentedObject:representedObject];
-
-    // Update the view, if already loaded.
 }
 
+#pragma mark - CBHTTPClientDelegate
+
+- (void)requestOK:(NSData*)response {
+    NSLog(@"requestOK");
+}
+
+- (void)requestTryAgain:(NSError*)error {
+    NSLog(@"requestTryAgain");
+}
+
+- (void)requestTimeout {
+    NSLog(@"requestTimeout");
+}
 
 @end
